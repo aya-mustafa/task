@@ -1,0 +1,68 @@
+<div class="row flex-nowrap">
+    <div class="container-fluid">
+      <div class="pageBox mt-2 ">
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Address</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <div *ngIf="AllEmployee.length==0">NO Employee</div>
+                <tr *ngFor = "let employee of AllEmployee  | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage };index as i">
+                    <td>{{employee.empName}}</td>
+                    <td>{{employee.empEmail}}</td>
+                    <td>{{employee.empAddress}}</td>
+                    <td>{{employee.empPhone}}</td>
+                    <td>
+                      
+                  
+                          <!-- Button trigger modal -->
+                        <a type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                          <i class="fa-regular fa-trash-can text-danger me-2"></i>
+                        </a>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                          <div class="modal-dialog  modal-dialog-centered">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Delete Employee</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                Are You Sure To Delete these Record?
+                                <p class="text-warning mt-4"> This Action cannot undone</p>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button (click)="deleteOneEmployee(employee.empId)" type="button" class="btn btn-danger border-0">Delete</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <app-edit [currentId]="employee.empId"></app-edit>
+                    </td>
+                </tr>
+            </tbody>
+          </table>
+
+          <div class=" d-flex justify-content-between mx-3">
+            <div class="text-info">
+              showing 10 out of {{AllEmployee.length}} 
+            </div>
+            <div class=" text-end paginationNav">
+              <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+          </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  

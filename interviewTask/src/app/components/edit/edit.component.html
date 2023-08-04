@@ -1,0 +1,57 @@
+
+
+<!-- Button trigger modal -->
+<a (click)="getOneEmployee()" type="button" class=" rounded-0" data-bs-toggle="modal" data-bs-target="#examplModal">
+    <i class="fa-solid fa-pen me-3 text-warning"></i>
+</a>
+  
+  <!-- Modal -->
+  <div class="modal fade  " id="examplModal" tabindex="-1" aria-labelledby="examplModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog modal-dialog-centered" id="modalDialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="examplModalLabel">Update Empolyee</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+           <form [formGroup]="updateEmployeeForm" (ngSubmit)="updateEmpolyee()">
+                <div class="form-group mb-3">
+                    <label for="employeeName" class="mb-1">Name</label>
+                    <input type="name" class="form-control bg-transparent" formControlName="empName">
+                    <div *ngIf="updateEmployeeForm.controls['empName'].errors&& updateEmployeeForm.controls['empName'].touched ">
+                        <span *ngIf="updateEmployeeForm.controls['empName'].errors?.['required']!==undefined" class="text-danger">Name is required</span>
+                        <span *ngIf="updateEmployeeForm.controls['empName'].errors?.['minlength']" class="text-danger">Min length must be 3</span>
+                        <span *ngIf="updateEmployeeForm.controls['empName'].errors?.['maxlength']" class="text-danger">Max length must be 20</span> 
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="employeeEmail" class="mb-1">Email</label>
+                    <input id="employeeEmail" type="text" class="form-control" formControlName="empEmail">
+                    <div *ngIf="updateEmployeeForm.controls['empEmail'].errors&& updateEmployeeForm.controls['empEmail'].touched ">
+                        <span *ngIf="updateEmployeeForm.controls['empEmail'].errors?.['required']!==undefined" class="text-danger">Email is required</span>
+                        <span *ngIf="!updateEmployeeForm.controls['empEmail'].errors?.['required'] && updateEmployeeForm.controls['empEmail'].errors!=null " class="text-danger">Email not valid </span>   
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="employeeAddress" class="mb-1">Address</label>
+                    <textarea id="employeeAddress" type="text" class="form-control"  formControlName="empAddress"></textarea>
+                    <div *ngIf="updateEmployeeForm.controls['empAddress'].errors&& updateEmployeeForm.controls['empAddress'].touched ">
+                        <span *ngIf="updateEmployeeForm.controls['empAddress'].errors?.['required']!==undefined" class="text-danger">Address is required</span>                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="employeePhone" class="mb-1">phone</label>
+                    <input id="employeePhone" class="form-control" formControlName="empPhone">
+                    <div *ngIf="updateEmployeeForm.controls['empPhone'].errors&& updateEmployeeForm.controls['empPhone'].touched ">
+                        <span *ngIf="updateEmployeeForm.controls['empPhone'].errors?.['required']!==undefined" class="text-danger">Phone is required</span>
+                        <span *ngIf="!updateEmployeeForm.controls['empPhone'].errors?.['required'] && updateEmployeeForm.controls['empPhone'].errors!=null " class="text-danger">Phone not valid Must consists from 11 Numbers  </span>   
+                    </div>
+                </div>
+                <div class="text-end">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button [disabled]="updateEmployeeForm.status=='INVALID'" type="submit" class="btn btn-primary ms-3">Save</button>
+                </div>
+           </form>
+        </div>
+      </div>
+    </div>
+  </div>
